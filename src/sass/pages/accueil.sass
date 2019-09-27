@@ -1,73 +1,95 @@
 body
     overflow: hidden
-    cursor: none
-.container
-    font-family: "Akzidenz"
-    font-weight: bold
-    cursor: none
-    height: 100vh
-    overflow: hidden
-    position: relative
-    width: 100%
-    .navigation
-        display: flex
-        height: 100vh
-        width: 100%
-        cursor: none
+    background-color: #C6D8D3
+    color: white
+    font-family: sans-serif
+.timer-value
+    z-index: 99
+    position: absolute
+    top: 0
+    left: 50%
+    transform: translateX(-50%)
+    font-size: 25px
+    font-family: sans-serif
+
+.game_infos 
+    left: 50%
+    top: 50%
+    transform: translate(-50%, -50%)
+    position: absolute
+    text-align: center
+    font-family: sans-serif
+    text-transform: uppercase
+    h1
+        font-size: 85px
+    a
+        color: black
+        text-decoration: none
+    img
+        width: 250px
         position: absolute
-        top: 0
-        left: 0
-        z-index: 2
-        &-left
-            width: 50%
-        &-right
-            width: 50%
-        &-cursor
-            background-size: contain
-            background-repeat: no-repeat
-            width: 150px
-            height: 120px
-            position: absolute
-            pointer-events: none
-            top: -10%
-            cursor: none
-            left: -5%
-            z-index: 3
-            &.hidden
-                display: none
-    .container-images
-        position: absolute
-        left: 50%
-        top: 50%
-        width: 500px
-        cursor: none
-        user-select: none
-        height: 500px
+        z-index: -1
+.start-window
+    position: absolute
+    top: 50%
+    left: 50%
+    width: 250px
+    height: 250px
+    transform: translate(-50%, -50%)
+    text-align: center
+    text-transform: uppercase
+    &.hidden
+        display: none
+    .text
         transform: translate(-50%, -50%)
-        z-index: 1
-        @media screen and (max-width: 480px)
-            width: 250px
-            height: 250px
-        img
-            opacity: 0
-            width: 100%
-            height: 100%
-            object-fit: contain
-            position: absolute
-    .image-name
         position: absolute
-        bottom: 20px
-        display: flex
-        width: 100%
-        user-select: none
-        justify-content: center
-    .container-names
-        z-index: 4
-        position: relative
-        user-select: none
-        ul
-            display: flex
-            justify-content: space-around
-            li
-                padding: 20px
-                cursor: pointer
+        top: 50%
+        left: 50%
+        h3
+            padding: 10px
+            color: white
+        h4
+            cursor: pointer
+            padding: 10px
+            animation: slidein 1s infinite
+            background-color: white
+            color: #C6D8D3
+.game_help
+    text-transform: uppercase
+    color: black
+    position: absolute
+    left: 50%
+    top: 5%
+    transform: translateX(-50%)
+    display: flex
+.game_picto
+    padding: 20px
+    text-align: center
+    font-size: 10px
+    img
+        width: 30px
+        padding: 20px
+        z-index: -1
+    h2
+        margin-top: 25px;
+
+.username_input
+    position: absolute
+    bottom: 20%
+    left: 50%
+    transform: translateX(-50%)
+    input
+        background-color: white
+        padding: 10px
+        text-align: center
+        color: #C6D8D3
+        text-transform: uppercase
+    input::placeholder
+        color: #C6D8D3
+@keyframes slidein 
+  from 
+    background-color: white
+    color: #C6D8D3
+  to 
+    background-color: #C6D8D3
+    color: white

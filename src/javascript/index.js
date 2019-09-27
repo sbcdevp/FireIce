@@ -1,38 +1,29 @@
 //IMPORTS
 import './vendors/Tween.js';
-import './components/Gallery.js';
+import CanvasComponent from './components/CanvasComponent';
+import CursorSprite from './components/CursorSprite';
+import Timer from './components/Timer'
 
-/*global window, document */
- document.addEventListener("DOMContentLoaded", function(event) {
-    window.gallery.images.init();
- });
+window.addEventListener('DOMContentLoaded', () => {
+    if (window.location.pathname === "/game.html") {
+        let startWindow = document.querySelector('.start-window'),
+            startButton = startWindow.querySelector('h4');
+        startButton.addEventListener('click', () => {
+            startWindow.classList.add('hidden')
+            new CanvasComponent()
+            new Timer()
+        })
+    } else if (window.location.pathname === "/") {
+        const buttonPlay = document.querySelector('.btn-play'),
+            inputName = document.querySelector('.input_name');
+        console.log(inputName)
 
- // function preloader() {
- //     this.containerImg = document.querySelector('.container-images')
- // 	if (document.images) {
- //        var i = 0;
- //        for (i = 0; i <= 10; i++) {
- //            var img = "img" + i;
- //            img = new Image();
- //            img.src = "images/img_"+ i + ".jpg"
- //            console.log(img)
- //            this.containerImg.append(img)
- //        }
- //
- // 	}
- // }
- // function addLoadEvent(func) {
- // 	var oldonload = window.onload;
- // 	if (typeof window.onload != 'function') {
- // 		window.onload = func;
- // 	} else {
- // 		window.onload = function() {
- // 			if (oldonload) {
- // 				oldonload();
- //                window.gallery.images.init();
- // 			}
- // 			func();
- // 		}
- // 	}
- // }
- // addLoadEvent(preloader);
+        buttonPlay.addEventListener('click', () => {
+            window.localStorage.setItem('Name', inputName.value)
+            window.location.href = "/game.html"
+        })
+        new CursorSprite()
+    } else {
+        throw new Error('Sorry page does not exist');
+    }
+})
