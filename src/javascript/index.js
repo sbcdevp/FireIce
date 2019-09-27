@@ -2,7 +2,6 @@
 import './vendors/Tween.js';
 import CanvasComponent from './components/CanvasComponent';
 import CursorSprite from './components/CursorSprite';
-import Timer from './components/Timer'
 
 window.addEventListener('DOMContentLoaded', () => {
     if (window.location.pathname === "/game.html") {
@@ -11,15 +10,12 @@ window.addEventListener('DOMContentLoaded', () => {
         startButton.addEventListener('click', () => {
             startWindow.classList.add('hidden')
             new CanvasComponent()
-            new Timer()
         })
     } else if (window.location.pathname === "/") {
         const buttonPlay = document.querySelector('.btn-play'),
             inputName = document.querySelector('.input_name');
-        console.log(inputName)
-
         buttonPlay.addEventListener('click', () => {
-            window.localStorage.setItem('Name', inputName.value)
+            window.localStorage.setItem('name', inputName.value)
             window.location.href = "/game.html"
         })
         new CursorSprite()

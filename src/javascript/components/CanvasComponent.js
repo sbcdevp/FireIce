@@ -13,6 +13,7 @@ class CanvasComponent {
   }
   _functionCall() {
     this.audio = new AudioComponent();
+    this.timer = new Timer();
     this._initSprite();
     this._initEnnemies();
     this._setupListeners();
@@ -143,9 +144,23 @@ class CanvasComponent {
     this._initCanvas();
     this._updateSpritePosition();
   }
+
   _endGame() {
-    console.log(window.localStorage.getItem('name'))
+    this.timer._stopTimer()
     window.cancelAnimationFrame(this.rafId)
+    this._sendScore();
+  }
+
+  _sendScore() {
+    fetch("http://localhost:5000/score",
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({ name: window.localStorage.getItem('name'), score: this.timer._timer() })
+      })
   }
   _resizeHandler() {
     this.canvas.width = window.innerWidth;
