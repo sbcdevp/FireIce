@@ -19,17 +19,23 @@ class CanvasComponent {
     this._setupListeners();
     this._initCanvas();
     this._resizeHandler();
-    this._drawCanvas();
+    this._backgroundCanvas();
     this._spriteEnnemyCounterFrame();
+    this._drawCanvas();
     this.playing = false;
   }
   _initCanvas() {
     this.canvas = document.querySelector('.canvas');
     this.canvasContext = this.canvas.getContext('2d');
-    this.canvasContext.fillStyle = '#C6D8D3';
-    this.canvasContext.fillRect(0, 0, window.innerWidth, window.innerHeight);
     this._drawSprite();
     this._drawEnnemies();
+  }
+  _backgroundCanvas() {
+    let background = new Image();
+    background.src = "./images/fond_game.png";
+    background.onload = () => {
+      this.background = background;
+    }
   }
   // USER SPRITE
   _initSprite() {
@@ -95,10 +101,10 @@ class CanvasComponent {
     this.n = 0;
     for (let imgIndex = 0; imgIndex < 5; imgIndex++) {
       const img = new Image();
-      img.src = `./images/ennemySprite_${imgIndex + 1}.png`;
+      img.src = `./images/ennemySprite_${imgIndex + 1}.gif`;
       ennemyItem = {
         img: img,
-        positionY: Math.random() * window.innerHeight,
+        positionY: Math.random() * window.innerHeight - 100,
         positionX: Math.random() * window.innerWidth + window.innerWidth / 2,
         speed: Math.random() * 0.04,
       };
@@ -128,31 +134,41 @@ class CanvasComponent {
   _spriteEnnemyCounterFrame() {
     setInterval(() => {
       this.spriteEnnemyCounter++;
-    }, 150);
+    }, 50);
   }
   _detectCollision(i) {
-    if (this.ennemyImgTab[i].positionX < this.spriteImgTab[0].positionX + 51.2 && this.ennemyImgTab[i].positionX > this.spriteImgTab[0].positionX - 51.2 && this.ennemyImgTab[i].positionY < this.spriteImgTab[0].positionY + 51.2 && this.ennemyImgTab[i].positionY > this.spriteImgTab[0].positionY - 51.2)
+    if (this.ennemyImgTab[i].positionX < this.spriteImgTab[0].positionX + 51.2 && this.ennemyImgTab[i].positionX > this.spriteImgTab[0].positionX - 51.2 && this.ennemyImgTab[i].positionY < this.spriteImgTab[0].positionY + 102.4 && this.ennemyImgTab[i].positionY > this.spriteImgTab[0].positionY - 51.2)
       this._endGame();
   }
   _drawCanvas() {
     this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.rafId = window.requestAnimationFrame(this._drawCanvas);
+    this._drawBackground();
     this.jumpValue = this.audio.getValue();
     if (!this.jumpValue) return;
     this.spriteImgTab[0].positionY += (window.innerHeight - 102.4 - this.jumpValue - this.spriteImgTab[0].positionY) * 0.1;
 
     this._initCanvas();
     this._updateSpritePosition();
-  }
 
+  }
+  _drawBackground() {
+    if (!this.background) return;
+    this.canvasContext.drawImage(this.background, 0, 0, 8000 / 6, 4500 / 7);
+
+  }
   _endGame() {
     this.timer._stopTimer()
     window.cancelAnimationFrame(this.rafId)
+    this.finishWindow = document.querySelector('.finish-window')
+    this.finishWindow.classList.remove('hidden')
+    this.finishScore = this.finishWindow.querySelector('h3 span')
+    this.finishScore.innerHTML = this.timer._timer()
     this._sendScore();
   }
 
   _sendScore() {
-    fetch("http://localhost:5000/score",
+    fetch("https://bd-fireicecream.herokuapp.com/score",
       {
         headers: {
           'Accept': 'application/json',

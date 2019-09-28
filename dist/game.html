@@ -8,11 +8,23 @@
   <link rel="stylesheet" href="./css/app.css">
 </head>
 <body>
+    <div class="background">
+        <img src="images/background_accueil.png" alt="">
+    </div>
   <div class="start-window">
     <div class="text">
       <h3>Ready ?</h3>
       <h4>SURE BRO</h4>
    </div>
+  </div>
+  <div class="finish-window hidden">
+      <div class="text" class="js-score">
+          <h3>Your score: <br><br><span>
+            
+          </span></h3>
+          <a href="/leaderboard.html">View scores</a><br><br>
+          <a class="replay" href="/game.html">Replay</a>
+       </div>
   </div>
   <canvas class="canvas"></canvas>
   <h1 class="timer-value"></h1>
