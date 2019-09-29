@@ -1,5 +1,5 @@
 {
-  "name": "Portfolio",
+  "name": "FireIceCream",
   "version": "1.0.0",
   "description": "Porfolio Serge Bocancea",
   "private": true,
@@ -23,7 +23,6 @@
     "webpack-cli": "^3.3.2"
   },
   "dependencies": {
-    "@barba/core": "^2.3.12",
     "acorn": "^6.1.1",
     "acorn-dynamic-import": "^4.0.0",
     "browser-sync": "^2.26.7",
